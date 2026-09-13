@@ -1,0 +1,27 @@
+Ambiente de desenvolvimento — TCC Detecção de Doenças no Tomateiro
+
+Sistema:
+
+Windows 11
+GPU: NVIDIA GeForce RTX 3050
+Python: 3.10.11 (ambiente virtual venv_tcc)
+
+NVIDIA / GPU:
+CUDA Toolkit: 11.2
+cuDNN: 8.1 (para CUDA 11.0, 11.1 e 11.2)
+
+Bibliotecas principais (Python):
+
+TensorFlow: 2.10.0 (última versão com suporte nativo a GPU no Windows)
+Keras: incluso no TensorFlow 2.10
+NumPy: < 2.0 (obrigatório — TensorFlow 2.10 não é compatível com NumPy 2.x)
+Pandas
+Scikit-learn
+Matplotlib
+Seaborn
+Kagglehub (download do dataset PlantVillage)
+
+Variáveis de ambiente (PATH) adicionadas:
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.2\bin
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.2\extras\CUPTI\lib64
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.2\include
