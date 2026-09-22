@@ -1,25 +1,23 @@
-import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-from config import CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, EPOCHS, FOLDS, TEST_SIZE, SEED, PATIENCE, EVALUATION_FOLDER
+from config_modelos import CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, EPOCHS, FOLDS, SEED, PATIENCE, EVALUATION_FOLDER
 
 
-def preparar_resultados_csv(df_folds, df_resumo, df_teste):
+def preparar_resultados_csv(df_folds, df_resumo):
     df_folds_csv = df_folds.copy()
     df_folds_csv["etapa"] = "fold"
 
     df_resumo_csv = df_resumo.copy()
     df_resumo_csv["etapa"] = "validacao_media"
 
-    df_teste_csv = df_teste.copy()
-    df_teste_csv["etapa"] = "teste"
-
-    return pd.concat([df_folds_csv, df_resumo_csv, df_teste_csv], ignore_index = True, sort = False)
+    return pd.concat([df_folds_csv, df_resumo_csv], ignore_index = True, sort = False)
 
 
-def salvar_resultados_csv(df_folds, df_resumo, df_teste):
-    resultados_csv = preparar_resultados_csv(df_folds, df_resumo, df_teste)
-    caminho_resultados = (EVALUATION_FOLDER / "evaluation" / f"resultados_{CURRENT_MODEL.lower()}_rgb_" f"{IMG_SIZE[0]}x{IMG_SIZE[1]}.csv")
+def salvar_resultados_csv(df_folds, df_resumo):
+    resultados_csv = preparar_resultados_csv(df_folds, df_resumo)
+    caminho_resultados = (EVALUATION_FOLDER / "csv" / f"resultados_{CURRENT_MODEL.lower()}_rgb_" f"{IMG_SIZE[0]}x{IMG_SIZE[1]}.csv")
     caminho_resultados.parent.mkdir(parents = True, exist_ok = True)
     resultados_csv.to_csv(caminho_resultados, index = False)
 
@@ -28,8 +26,8 @@ def salvar_resultados_csv(df_folds, df_resumo, df_teste):
     return caminho_resultados
 
 
-def salvar_resultados_excel(df_folds, df_resumo, df_teste, df_metricas_classe, matriz, modelo, tempo_final, epocas_finais, quantidade_desenvolvimento, quantidade_teste):
-    caminho_excel = EVALUATION_FOLDER / "resultados_experimentos.xlsx"
+def salvar_resultados_excel(df_folds, df_resumo, quantidade_total_imagens):
+    caminho_excel = (EVALUATION_FOLDER / "excel" / "resultados_experimentos.xlsx")
 
     caminho_excel.parent.mkdir(parents = True, exist_ok = True)
 
@@ -41,13 +39,9 @@ def salvar_resultados_excel(df_folds, df_resumo, df_teste, df_metricas_classe, m
             "batch_size",
             "epocas_maximas",
             "folds",
-            "percentual_teste",
             "seed",
             "patience_early_stopping",
-            "quantidade_desenvolvimento",
-            "quantidade_teste",
-            "epocas_modelo_final",
-            "tempo_treino_modelo_final_seg"
+            "quantidade_total_imagens"
         ],
         "valor": [
             CURRENT_MODEL,
@@ -56,80 +50,65 @@ def salvar_resultados_excel(df_folds, df_resumo, df_teste, df_metricas_classe, m
             BATCH_SIZE,
             EPOCHS,
             FOLDS,
-            TEST_SIZE,
             SEED,
             PATIENCE,
-            quantidade_desenvolvimento,
-            quantidade_teste,
-            epocas_finais,
-            tempo_final
+            quantidade_total_imagens
         ]
     })
 
-    custo_computacional = pd.DataFrame([{
-        "modelo": CURRENT_MODEL,
-        "parametros_totais": modelo.count_params(),
-        "parametros_treinaveis": sum(
-            np.prod(peso.shape)
-            for peso in modelo.trainable_weights
-        ),
-        "tempo_treino_modelo_final_seg": tempo_final,
-        "epocas_modelo_final": epocas_finais,
-        "tempo_inferencia_seg": (
-            df_teste.iloc[0]["tempo_inferencia_seg"]
-        ),
-        "tempo_medio_por_imagem_seg": (
-            df_teste.iloc[0]["tempo_medio_por_imagem_seg"]
-        )
-    }])
+    abas_anteriores = {}
+    
+    if (caminho_excel.exists()):
+        try:
+            abas_anteriores = pd.read_excel(caminho_excel, sheet_name = None)
+
+        except Exception:
+            abas_anteriores = {}
+
+    def acumular(nome_aba, df_novo):
+        if (nome_aba in abas_anteriores):
+            return pd.concat([abas_anteriores[nome_aba], df_novo], ignore_index = True)
+        
+        return df_novo
 
     with pd.ExcelWriter(
         caminho_excel,
-        engine="openpyxl"
-
+        engine = "openpyxl"
     ) as escritor:
-        df_resumo.to_excel(
+        
+        acumular("FOLDS", df_folds).to_excel(
             escritor,
-            sheet_name="resumo",
-            index=False
+            sheet_name = "FOLDS",
+            index = False
         )
 
-        df_folds.to_excel(
+        acumular("MEDIA_FOLD", df_resumo).to_excel(
             escritor,
-            sheet_name="folds",
-            index=False
+            sheet_name = "MEDIA_FOLD",
+            index = False
         )
 
-        df_teste.to_excel(
-            escritor,
-            sheet_name="teste",
-            index=False
-        )
 
-        df_metricas_classe.to_excel(
+        acumular("CONFIGURACAO", configuracoes).to_excel(
             escritor,
-            sheet_name="metricas_classe",
-            index=False
+            sheet_name = "CONFIGURACAO",
+            index = False
         )
-
-        matriz.to_excel(
-            escritor,
-            sheet_name="matriz_confusao",
-            index=True
-        )
-
-        configuracoes.to_excel(
-            escritor,
-            sheet_name="configuracao",
-            index=False
-        )
-
-        custo_computacional.to_excel(
-            escritor,
-            sheet_name="custo_computacional",
-            index=False
-        )
-
-    print(f"\nResultados organizados no Excel: {caminho_excel}")
 
     return caminho_excel
+
+
+def gerar_matriz_confusao(matriz, classes):
+    plt.figure(figsize = (12, 10))
+    sns.heatmap(matriz, annot = True, fmt = "d", cmap = "Blues", xticklabels = classes, yticklabels = classes)
+
+    plt.title("Matriz de Confusão Global (K-Fold)")
+    plt.ylabel("Classe Real")
+    plt.xlabel("Classe Prevista")
+    plt.tight_layout()
+
+    caminho = EVALUATION_FOLDER / "matrizes" / f"matriz_{CURRENT_MODEL.lower()}_rgb_{IMG_SIZE[0]}x{IMG_SIZE[1]}.png"
+    caminho.parent.mkdir(parents = True, exist_ok = True)
+    plt.savefig(caminho)
+    
+    plt.close()

@@ -2,10 +2,10 @@ import shutil
 import numpy as np
 import kagglehub
 from pathlib import Path
-from sklearn.model_selection import train_test_split
-from config import BASE_FOLDER_RGB, DATASET_KAGGLE, TEST_SIZE, SEED
 
+from config_modelos import BASE_FOLDER_RGB, DATASET_KAGGLE
 
+# Baixar dataset importado do Kaggle (PlantVillage)
 def baixar_dataset():
     path = kagglehub.dataset_download(DATASET_KAGGLE)
     print(path)
@@ -13,6 +13,7 @@ def baixar_dataset():
     return Path(path)
 
 
+# Copiar as pastas que contém imagens da cultura do tomate em formato RGB
 def copiar_pastas(origem):
     destino = BASE_FOLDER_RGB 
     destino.mkdir(parents = True, exist_ok = True)
@@ -30,33 +31,35 @@ def copiar_pastas(origem):
     return destino
 
 
+# Coletar os caminhos (Paths) e rótulos (Labels)
 def coletar_caminhos_rotulos(pasta_destino):
     paths = []
     labels = []
 
-    for classe_pasta in pasta_destino.iterdir():
+    extensoes = ("*.jpg", "*.jpeg", "*.png")
+
+    for classe_pasta in sorted(pasta_destino.iterdir()):
         if (classe_pasta.is_dir()):
-            for img in classe_pasta.glob("*.JPG"):
-                paths.append(str(img))
-                labels.append(classe_pasta.name)
+            for extensao in extensoes:
+                for img in sorted(classe_pasta.glob(extensao)):
+                    paths.append(str(img))
+                    labels.append(classe_pasta.name)
 
     paths = np.array(paths)
     labels = np.array(labels)
 
-    print(f"Total de imagens encontradas: {len(paths)}")
+    total_imagens = len(paths)
+
+    print(f"\nTotal de imagens encontradas: {total_imagens}")
+    
+    classes_unicas, contagens = np.unique(labels, return_counts = True)
+
+    print("-" * 50)
+    print("Distribuição das classes:")
+    for classe, contagem in zip(classes_unicas, contagens):
+        percentual = (contagem / total_imagens) * 100
+        print(f"{classe}: {contagem} imagens ({percentual:.2f}%)")
+    print("-" * 50)
+    print(f"Quantidade de classes: {len(classes_unicas)}")
 
     return paths, labels
-
-
-def separar_test_set(paths, labels):
-    train_val_paths, test_paths, train_val_labels, test_labels = train_test_split(
-        paths, labels,
-        test_size = TEST_SIZE,
-        stratify = labels,
-        random_state = SEED
-    )
-
-    print(f"Treino + Validação (K-Fold): {len(train_val_paths)} imagens")
-    print(f"Teste (guardado até o final): {len(test_paths)} imagens")
-
-    return train_val_paths, test_paths, train_val_labels, test_labels
