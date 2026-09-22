@@ -3,5 +3,5 @@ venv_tcc
 data
 results/evaluation_v1
 results/evaluation_v2
-results/evaluation_v3/csvresults/models
+results/evaluation_v3/csv
 *.keras

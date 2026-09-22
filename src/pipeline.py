@@ -4,7 +4,6 @@ import keras.utils
 
 from config_modelos import MODELS, CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, SEED
 
-
 # Carregar as imagens e realizar o pré-processamento
 def carregar_processar_imagem(path, size = IMG_SIZE):
     image = tf.io.read_file(path)

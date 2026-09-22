@@ -76,10 +76,6 @@ def rodar_kfold(train_val_paths, train_val_labels, classe_unica, folds = FOLDS):
         print(f"Imagens de Treino: {len(train_idx)} | Imagens de Validação: {len(val_idx)}")
         print(f"{'=' * 50}")
 
-        _, contagens = np.unique(train_val_labels[val_idx], return_counts = True)
-        print(f"Divisão exata de classes na Validação: {contagens}")
-
-
         resultado_folds = treinar_fold(
             train_val_paths[train_idx], train_val_labels[train_idx],
             train_val_paths[val_idx], train_val_labels[val_idx],

@@ -1,7 +1,5 @@
 import os
-import random
 import numpy as np
-import tensorflow as tf
 import keras.utils
 from sklearn.model_selection import StratifiedKFold
 
@@ -10,9 +8,6 @@ from dados import coletar_caminhos_rotulos
 
 os.environ["PYTHONHASHSEED"] = str(SEED)
 
-random.seed(SEED)
-np.random.seed(SEED)
-tf.random.set_seed(SEED)
 keras.utils.set_random_seed(SEED)
 
 def verificar_folds():
@@ -20,7 +15,7 @@ def verificar_folds():
     paths, labels = coletar_caminhos_rotulos(BASE_FOLDER_RGB)
     classe_unica = np.unique(labels)
     
-    print("\nIniciando Divisão do K-Fold (SEED=42)...")
+    print("\nIniciando Divisão do K-Fold (SEED = 42)...")
     skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = SEED)
 
     cont = 5
@@ -33,7 +28,7 @@ def verificar_folds():
             for i in range(5):
                 indice = val_idx[i]
                 caminho_imagem = paths[indice]
-                print(f"{i+1}. {caminho_imagem}")
+                print(f"{i + 1}. {caminho_imagem}")
 
             fold += 1
 
