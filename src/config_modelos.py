@@ -1,5 +1,5 @@
-import keras.applications.mobilenet_v3, keras.applications.efficientnet_v2, keras.applications.resnet_v2, keras.applications.densenet, keras.applications.convnext
-from keras.applications import MobileNetV3Large, MobileNetV3Small, EfficientNetV2B3, EfficientNetV2B0, ResNet50V2, DenseNet121, ConvNeXtTiny
+import keras.applications.mobilenet_v3, keras.applications.efficientnet_v2, keras.applications.resnet_v2, keras.applications.densenet
+from keras.applications import MobileNetV3Large, MobileNetV3Small, EfficientNetV2B3, EfficientNetV2B0, ResNet50V2, DenseNet121
 from pathlib import Path
 
 # Parâmetros que serão utilizados para treinar o modelo
@@ -48,12 +48,7 @@ MODELS = {
         "classe": DenseNet121,
         "preprocess": keras.applications.densenet.preprocess_input
     },
-
-    "ConvNeXtTiny": {
-        "classe": ConvNeXtTiny,
-        "preprocess": keras.applications.convnext.preprocess_input
-    }
 }
 
 # Escolha do modelo atual
-CURRENT_MODEL = "ConvNeXtTiny"
+CURRENT_MODEL = "MobileNetV3Large"
