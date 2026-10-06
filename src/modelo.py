@@ -2,7 +2,9 @@ import keras.layers, keras.optimizers
 
 from config_modelos import MODELS, CURRENT_MODEL, IMG_SIZE
 
-# Criar o modelo 
+# Criar o modelo base, atribuindo o tamanho da imagem (input_shape = (224, 224, 3)), 
+# camada de classificação definida como False (include_top = False),
+# pesos (weights = imagenet)
 def criar_modelo(num_classes):
     classe_modelo = MODELS[CURRENT_MODEL]["classe"]
 

@@ -12,10 +12,11 @@ from relatorios import gerar_matriz_confusao
 
 
 def treinar_fold(caminhos_treino, rotulos_treino, caminhos_validacao, rotulos_validacao, classe_unica, epochs = EPOCHS):
+    keras.backend.clear_session()
+
     dataset_treino = criar_dataset(caminhos_treino, rotulos_treino, classe_unica, shuffle = True)
     dataset_validacao = criar_dataset(caminhos_validacao, rotulos_validacao, classe_unica, shuffle = False)
 
-    keras.backend.clear_session()
     modelo = criar_modelo(num_classes = len(classe_unica))
 
     inicio = time()

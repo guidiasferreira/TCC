@@ -47,8 +47,8 @@ MODELS = {
     "DenseNet121": {
         "classe": DenseNet121,
         "preprocess": keras.applications.densenet.preprocess_input
-    },
+    }
 }
 
 # Escolha do modelo atual
-CURRENT_MODEL = "MobileNetV3Large"
+CURRENT_MODEL = "DenseNet121"

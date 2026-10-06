@@ -13,7 +13,7 @@ def baixar_dataset():
     return Path(path)
 
 
-# Copiar as pastas que contém imagens da cultura do tomate em formato RGB
+# Copiar as pastas que contém imagens da cultura do tomate em formato RGB (Red, Green, Blue)
 def copiar_pastas(origem):
     destino = BASE_FOLDER_RGB 
     destino.mkdir(parents = True, exist_ok = True)
@@ -36,7 +36,11 @@ def coletar_caminhos_rotulos(pasta_destino):
     paths = []
     labels = []
 
-    extensoes = ("*.jpg", "*.jpeg", "*.png")
+    extensoes = (
+        "*.jpg", 
+        "*.jpeg", 
+        "*.png"
+    )
 
     for classe_pasta in sorted(pasta_destino.iterdir()):
         if (classe_pasta.is_dir()):
@@ -56,6 +60,7 @@ def coletar_caminhos_rotulos(pasta_destino):
 
     print("-" * 50)
     print("Distribuição das classes:")
+    
     for classe, contagem in zip(classes_unicas, contagens):
         percentual = (contagem / total_imagens) * 100
         print(f"{classe}: {contagem} imagens ({percentual:.2f}%)")
