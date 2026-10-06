@@ -24,7 +24,6 @@ import pandas as pd
 import csv
 import warnings
 
-
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=Warning)
 np.set_printoptions(suppress=True)
@@ -70,10 +69,10 @@ def setBase(op=0):
         data = np.loadtxt(raw_data, delimiter=",")
         # alterado
         dataset1 = np.asmatrix(data)
-        ##    dimensao = data.shape
-        ##    X = data[:,:dimensao[1]-1]
-        ##    Y = data[:,dimensao[1]-1]
-        ##    return X, Y
+        # dimensao = data.shape
+        # X = data[:,:dimensao[1]-1]
+        # Y = data[:,dimensao[1]-1]
+        # return X, Y
         return dataset1
 
     elif op == int(base.WineQuality):
@@ -121,7 +120,7 @@ def setBase(op=0):
         raw_data = open(filename, "rt")
         data = np.loadtxt(raw_data, delimiter=";")
         data = np.asmatrix(data)
-        ##print(data.shape)
+        # print(data.shape)
         Y = np.asmatrix(data[:, 2:])
         # Y = np.sqrt(Y)
         X = data[:, :2]
@@ -161,9 +160,9 @@ def setBase(op=0):
         img_rows, img_cols = 28, 28
         np.set_printoptions(suppress=True)
         np.seterr(divide="ignore", invalid="ignore")
-        ##train images
+        # train images
         X = []
-        ##train labels
+        # train labels
         Y = []
         mypath = "C:\\Users\\Renan\\Documents\\pastaCompartilhada\\Projeto\\algoritmos\\FGNET\\images\\"
         filename = "C:\\Users\\Renan\\Downloads\\redes complexas\\"
@@ -175,17 +174,21 @@ def setBase(op=0):
             imv = np.array(im.getdata(), np.uint8).reshape(im.size[1], im.size[0])
             X.append(imv)
             strAge = str(onlyfiles[j])
+
             try:
                 Age = int(strAge[-6:-4])
             except:
                 Age = int(strAge[-7:-5])
+
             Y.append(Age)
+
         X = np.array(X)
         Y = np.array(Y)
 
         if K.image_data_format() == "channels_first":
             x = X.reshape(X.shape[0], 1, img_rows, img_cols)
             input_shape = (1, img_rows, img_cols)
+
         else:
             x = X.reshape(X.shape[0], img_rows, img_cols, 1)
             input_shape = (img_rows, img_cols, 1)
@@ -199,7 +202,7 @@ def setBase(op=0):
             data.append(x)
 
         data = np.asmatrix(data)
-        ##Y=np.sqrt(Y)
+        # Y=np.sqrt(Y)
         Y = np.asmatrix(Y).T
         X = data
         dataset1 = np.hstack((X, Y))
@@ -211,9 +214,9 @@ def setBase(op=0):
         img_rows, img_cols = 28, 28
         np.set_printoptions(suppress=True)
         np.seterr(divide="ignore", invalid="ignore")
-        ##train images
+        # train images
         X = []
-        ##train labels
+        # train labels
         Y = []
         mypath = "C:\\Users\\Renan\\Documents\\pastaCompartilhada\\Projeto\\algoritmos\\FGNET\\images\\"
         filename = "C:\\Users\\Renan\\Downloads\\redes complexas\\"
@@ -225,10 +228,13 @@ def setBase(op=0):
             imv = np.array(im.getdata(), np.uint8).reshape(im.size[1], im.size[0])
             X.append(imv)
             strAge = str(onlyfiles[j])
+
             try:
                 Age = int(strAge[-6:-4])
+
             except:
                 Age = int(strAge[-7:-5])
+
             Y.append(Age)
         X = np.array(X)
         Y = np.array(Y)
@@ -236,6 +242,7 @@ def setBase(op=0):
         if K.image_data_format() == "channels_first":
             x = X.reshape(X.shape[0], 1, img_rows, img_cols)
             input_shape = (1, img_rows, img_cols)
+
         else:
             x = X.reshape(X.shape[0], img_rows, img_cols, 1)
             input_shape = (img_rows, img_cols, 1)
@@ -249,7 +256,7 @@ def setBase(op=0):
             data.append(x)
 
         data = np.asmatrix(data)
-        ##Y=np.sqrt(Y)
+        # Y=np.sqrt(Y)
         Y = np.asmatrix(Y).T
         X = data
         dataset1 = np.hstack((X, Y))
@@ -263,7 +270,7 @@ def setBase(op=0):
 
         data = np.asmatrix(data)
         Y = np.asmatrix(data[:, (data.A.shape[1] - 1)])
-        ##Y=Y/100
+        # Y=Y/100
 
         X = data[:, 0 : (data.A.shape[1] - 1)]
         X = np.asarray(X)
@@ -320,7 +327,7 @@ def setBase(op=0):
 
         data = np.asmatrix(data)
         Y = np.asmatrix(data[:, data.A.shape[1] - 1])
-        ##Y=np.log10(Y)/np.log10(6)
+        # Y=np.log10(Y)/np.log10(6)
 
         X = data[:, 1 : data.A.shape[1] - 1]
         X = np.asarray(X)
@@ -337,7 +344,7 @@ def setBase(op=0):
 
         data = np.asmatrix(data)
         Y = np.asmatrix(data[:, data.A.shape[1] - 1])
-        ##Y=np.log10(Y)/np.log10(6)
+        # Y=np.log10(Y)/np.log10(6)
 
         X = data[:, 1 : data.A.shape[1] - 1]
         X = np.asarray(X)
@@ -351,15 +358,15 @@ def setBase(op=0):
         data = pd.read_csv(mypath, delimiter=";")
         data = data.values
 
-        ##        mols=data[:,0]
-        ##        lenMols=np.zeros(len(mols))
-        ##        for i in range(len(mols)):
-        ##            lenMols[i]=len(str(mols[i]))
-        ##        dataset1 = np.zeros((len(mols),int(max(lenMols))))
-        ##        for i in range(len(mols)):
-        ##            st=str(mols[i])
-        ##            for j in range(len(st)):
-        ##                dataset1[i,j]=int(ord(st[j]))
+        # mols=data[:,0]
+        # lenMols=np.zeros(len(mols))
+        # for i in range(len(mols)):
+        # lenMols[i]=len(str(mols[i]))
+        # dataset1 = np.zeros((len(mols),int(max(lenMols))))
+        # for i in range(len(mols)):
+        # st=str(mols[i])
+        # for j in range(len(st)):
+        # dataset1[i,j]=int(ord(st[j]))
 
         sentences = data[:, 0:2]
 
@@ -436,7 +443,7 @@ def setBase(op=0):
         return dataset1
 
 
-##---------------------------escolhendo a base -------------------------------------
+# ---------------------------escolhendo a base -------------------------------------
 dataset = setBase(op=base.PlantVillage)
 diml = dataset.A.shape[0]
 dimc = dataset.A.shape[1]
@@ -484,7 +491,7 @@ def setReduDim(data=dataset, op=1):
 
 def kmeans(dataset=dataset, k=2, threshold=0.001):
     dataset = np.asmatrix(dataset)
-    ##dataset= pp.StandardScaler().fit_transform(dataset)
+    # dataset= pp.StandardScaler().fit_transform(dataset)
     ids = np.random.randint(0, len(dataset), k)
     centers = []
     for i in range(0, k):
@@ -555,10 +562,10 @@ class pre(IntEnum):
     PolinomialFeatures = 8
     FunctionTransformer = 9
 
-    ##KernelCenterer=8
-    ##OneHotEncoder=10
-    ##OrdinalEncoder=11
-    ##KbinsDiscretizer=12
+    # KernelCenterer=8
+    # OneHotEncoder=10
+    # OrdinalEncoder=11
+    # KbinsDiscretizer=12
 
 
 class metricaD(IntEnum):
@@ -609,17 +616,17 @@ def preProcessar(dataset=dataset, op=0):
     elif op == int(pre.RobustScale):
         dataset1 = pp.RobustScaler().fit_transform(np.asarray(dataset))
         return dataset1
-    ##elif op == pre.KernelCenterer:
-    ##    dataset1 = pp.KernelCenterer().fit_transform(dataset)
-    ##    return dataset1
+    # elif op == pre.KernelCenterer:
+    # dataset1 = pp.KernelCenterer().fit_transform(dataset)
+    # return dataset1
     elif op == int(pre.PolinomialFeatures):
         dataset1 = pp.PolynomialFeatures().fit_transform(np.asarray(dataset))
         return dataset1
-    ##elif op == pre.OneHotEncoder:
-    ##elif op == pre.OrdinalEncoder:
-    ##elif op == pre.KbinsDiscretizer:
-    ##    dataset1 = pp.KBinsDiscretizer(n_bins=[3, 2, 2], encode='ordinal').fit_transform(dataset)
-    ##    return dataset1
+    # elif op == pre.OneHotEncoder:
+    # elif op == pre.OrdinalEncoder:
+    # elif op == pre.KbinsDiscretizer:
+    # dataset1 = pp.KBinsDiscretizer(n_bins=[3, 2, 2], encode='ordinal').fit_transform(dataset)
+    # return dataset1
     elif op == int(pre.FunctionTransformer):
         dataset1 = pp.FunctionTransformer(np.log1p, validate=True).fit_transform(
             np.asarray(dataset)
@@ -657,12 +664,12 @@ def plotGraphClustersScaleReduction(k=2, op=0, red=0):
     print("Aplicando KNN")
     knnMat = knn(D, 10)
 
-    ##    for i in range(len(knnMat)):
-    ##        for j in range(knnMat.shape[1]):
+    # for i in range(len(knnMat)):
+    # for j in range(knnMat.shape[1]):
 
     print("Aplicando RBF")
     Wi = buildW(D, knnMat, sigma=0.5)
-    ##W=buildW(model.Xtrain,sigma=sigma)
+    # W=buildW(model.Xtrain,sigma=sigma)
 
     centers, W, closest = kmeans(dataset=dataset, k=k, threshold=0.001)
 
@@ -672,11 +679,11 @@ def plotGraphClustersScaleReduction(k=2, op=0, red=0):
     model.g.vs["label"] = range(0, len(Wi))
 
     model.g.vs["classes"] = closest
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(closest) - min(closest)
     matiz = (254 - 31.75) / d
 
@@ -686,7 +693,7 @@ def plotGraphClustersScaleReduction(k=2, op=0, red=0):
             int(((closest[i] - min(closest)) * matiz) + 31.75)
         )
 
-    ##switch
+    # switch
     print("Gerando arestas")
     for i in range(0, Wi.A.shape[0]):
         for j in range(0, Wi.A.shape[1]):
@@ -720,12 +727,12 @@ def plotGraphScaleReduction(op=0, red=0):
     print("Aplicando KNN")
     knnMat = knn(D, 10)
 
-    ##    for i in range(len(knnMat)):
-    ##        for j in range(knnMat.shape[1]):
+    # for i in range(len(knnMat)):
+    # for j in range(knnMat.shape[1]):
 
     print("Aplicando RBF")
     Wi = buildW(D, knnMat, sigma=0.5)
-    ##W=buildW(model.Xtrain,sigma=sigma)
+    # W=buildW(model.Xtrain,sigma=sigma)
 
     print("Gerando Grafo")
     model.g = Graph()
@@ -733,11 +740,11 @@ def plotGraphScaleReduction(op=0, red=0):
     model.g.vs["label"] = range(0, len(Wi))
 
     model.g.vs["classes"] = model.Ytrain
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(model.Ytrain) - min(model.Ytrain)
     matiz = (254 - 31.75) / d
 
@@ -747,7 +754,7 @@ def plotGraphScaleReduction(op=0, red=0):
             int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75)
         )
 
-    ##switch
+    # switch
     print("Gerando arestas")
     for i in range(0, Wi.A.shape[0]):
         for j in range(0, Wi.A.shape[1]):
@@ -781,12 +788,12 @@ def plotGraphScaleReduction(op=0, red=0):
     print("Aplicando KNN")
     knnMat = knn(D, 10)
 
-    ##    for i in range(len(knnMat)):
-    ##        for j in range(knnMat.shape[1]):
+    # for i in range(len(knnMat)):
+    # for j in range(knnMat.shape[1]):
 
     print("Aplicando RBF")
     Wi = buildW(D, knnMat, sigma=0.5)
-    ##W=buildW(model.Xtrain,sigma=sigma)
+    # W=buildW(model.Xtrain,sigma=sigma)
 
     print("Gerando Grafo")
     model.g = Graph()
@@ -794,11 +801,11 @@ def plotGraphScaleReduction(op=0, red=0):
     model.g.vs["label"] = range(0, len(Wi))
 
     model.g.vs["classes"] = model.Ytrain
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(model.Ytrain) - min(model.Ytrain)
     matiz = (254 - 31.75) / d
 
@@ -808,7 +815,7 @@ def plotGraphScaleReduction(op=0, red=0):
             int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75)
         )
 
-    ##switch
+    # switch
     print("Gerando arestas")
     for i in range(0, Wi.A.shape[0]):
         for j in range(0, Wi.A.shape[1]):
@@ -827,37 +834,37 @@ def plotGraphScaleReduction(op=0, red=0):
 
 
 def construirGrafoKnn(model, knnMat, D):
-    ##    print("Gerando Grafo")
+    # print("Gerando Grafo")
     model.g = Graph()
     model.g.add_vertices(len(knnMat))
     # g.to_undirected)
-    ##    model.g.vs["label"] = range(0,len(W))
+    # model.g.vs["label"] = range(0,len(W))
     model.g.vs["id"] = range(0, len(knnMat))
     model.g1 = model.g.copy()
 
     model.g1.vs["classes"] = Y
     model.g.vs["label"] = range(0, len(Y))
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
-    ##    print("Ajustando paleta rainbow")
+    # print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(Y) - min(Y)
     matiz = (254 - 31.75) / d
 
-    ##    print("Aplicando Paleta")
+    # print("Aplicando Paleta")
     for i in range(len(Y)):
-        ##model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
+        # model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
         model.g1.vs[i]["color"] = pal.get(int(((Y[i] - min(Y)) * matiz) + 31.75))
 
         if Y[i] == 0.0:
             model.g.vs[i]["color"] = color_name_to_rgba("grey")
         else:
-            ##model.g.vs[i]['color']=pal.get(int(model.YtrainVet[i]*matiz))
+            # model.g.vs[i]['color']=pal.get(int(model.YtrainVet[i]*matiz))
             model.g.vs[i]["color"] = pal.get(int(((Y[i] - min(Y)) * matiz) + 31.75))
 
-    ##switch
-    ##    print("Gerando arestas")
+    # switch
+    # print("Gerando arestas")
     for i in range(0, knnMat.shape[0]):
         for j in range(0, knnMat.shape[1]):
             if int(knnMat[i, j]) >= 0:
@@ -870,17 +877,17 @@ def construirGrafoKnn(model, knnMat, D):
                     model.g1.es[model.g1.get_eid(i, int(knnMat[i, j]))]["weight"] = D[
                         i, j
                     ]
-        ##print("i="+str(i))
+        # print("i="+str(i))
 
     return model
 
 
 def construirGrafoSmallWorld(model, knnMat, W):
-    ##    print("Gerando Grafo")
+    # print("Gerando Grafo")
     model.g = Graph()
     model.g.add_vertices(len(W))
     # g.to_undirected)
-    ##    model.g.vs["label"] = range(0,len(W))
+    # model.g.vs["label"] = range(0,len(W))
     model.g.vs["id"] = range(0, len(W))
     model.g.vs["iter"] = 0
     model.g1 = model.g.copy()
@@ -888,17 +895,17 @@ def construirGrafoSmallWorld(model, knnMat, W):
     model.g.vs["classes"] = model.YtrainVet
     model.g.vs["iter"] = model.rotulosIni
     model.g1.vs["classes"] = model.Ytrain
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
-    ##    print("Ajustando paleta rainbow")
+    # print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(model.Ytrain) - min(model.Ytrain)
     matiz = (254 - 31.75) / d
 
-    ##    print("Aplicando Paleta")
+    # print("Aplicando Paleta")
     for i in range(len(model.YtrainVet)):
-        ##model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
+        # model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
         model.g1.vs[i]["color"] = pal.get(
             int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75)
         )
@@ -906,13 +913,13 @@ def construirGrafoSmallWorld(model, knnMat, W):
         if model.YtrainVet[i] == 0.0:
             model.g.vs[i]["color"] = color_name_to_rgba("grey")
         else:
-            ##model.g.vs[i]['color']=pal.get(int(model.YtrainVet[i]*matiz))
+            # model.g.vs[i]['color']=pal.get(int(model.YtrainVet[i]*matiz))
             model.g.vs[i]["color"] = pal.get(
                 int(((model.YtrainVet[i] - min(model.Ytrain)) * matiz) + 31.75)
             )
 
-    ##switch
-    ##    print("Gerando arestas")
+    # switch
+    # print("Gerando arestas")
     for i in range(0, W.A.shape[0]):
         for j in range(0, W.A.shape[1]):
             if W[i, j] > 0 and int(knnMat[i, j]) >= 0:
@@ -925,36 +932,36 @@ def construirGrafoSmallWorld(model, knnMat, W):
                     model.g1.es[model.g1.get_eid(i, int(knnMat[i, j]))]["weight"] = W[
                         i, j
                     ]
-        ##print("i="+str(i))
+        # print("i="+str(i))
     return model
 
 
 def construirGrafoEspectral(model, W):
-    ##    print("Gerando Grafo")
+    # print("Gerando Grafo")
     model.gRel = Graph()
     model.gRel.add_vertices(len(W))
     # g.to_undirected)
-    ##    model.g.vs["label"] = range(0,len(W))
+    # model.g.vs["label"] = range(0,len(W))
     model.gRel.vs["id"] = range(0, len(W))
     model.gRel.vs["iter"] = 0
 
     model.gRel.vs["classes"] = Y
     model.gRel.vs["label"] = range(0, len(Y))
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
-    ##    print("Ajustando paleta rainbow")
+    # print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(Y) - min(Y)
     matiz = (254 - 31.75) / d
 
-    ##    print("Aplicando Paleta")
+    # print("Aplicando Paleta")
     for i in range(len(Y)):
-        ##model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
+        # model.g1.vs[i]['color']=pal.get(int(model.Ytrain[i]*matiz))
         model.gRel.vs[i]["color"] = pal.get(int(((Y[i] - min(Y)) * matiz) + 31.75))
 
-    ##switch
-    ##    print("Gerando arestas")
+    # switch
+    # print("Gerando arestas")
     for i in range(0, W.A.shape[0]):
         for j in range(0, W.A.shape[1]):
             if W[i, j] > 0 and i != j:
@@ -981,12 +988,12 @@ def plotGraphReductionScale(op=0, red=0):
     print("Aplicando KNN")
     knnMat = knn(D, 10)
 
-    ##    for i in range(len(knnMat)):
-    ##        for j in range(knnMat.shape[1]):
+    # for i in range(len(knnMat)):
+    # for j in range(knnMat.shape[1]):
 
     print("Aplicando RBF")
     Wi = buildW(D, knnMat, sigma=0.5)
-    ##W=buildW(model.Xtrain,sigma=sigma)
+    # W=buildW(model.Xtrain,sigma=sigma)
 
     print("Gerando Grafo")
     model.g = Graph()
@@ -994,11 +1001,11 @@ def plotGraphReductionScale(op=0, red=0):
     model.g.vs["label"] = range(0, len(Wi))
 
     model.g.vs["classes"] = model.Ytrain
-    ##color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
+    # color_dict = {0: "grey", 1: "blue", 2: "red", 3: "green"}
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
-    ##matiz=254/max(model.Ytrain)
+    # matiz=254/max(model.Ytrain)
     d = max(model.Ytrain) - min(model.Ytrain)
     matiz = (254 - 31.75) / d
 
@@ -1008,7 +1015,7 @@ def plotGraphReductionScale(op=0, red=0):
             int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75)
         )
 
-    ##switch
+    # switch
     print("Gerando arestas")
     for i in range(0, Wi.A.shape[0]):
         for j in range(0, Wi.A.shape[1]):
@@ -1043,8 +1050,8 @@ def plotdataClustersReductionScale(k=2, op=0, red=0):
     print("Aplicando Escala")
     model.Xtrain = preProcessar(dataset=model.Xtrain, op=op)
 
-    ##    print("Buscando distancias")
-    ##    D=distance(model.Xtrain)
+    # print("Buscando distancias")
+    # D=distance(model.Xtrain)
 
     centers, W, closest = kmeans(dataset=model.Xtrain, k=k, threshold=0.001)
 
@@ -1076,8 +1083,8 @@ def plotdataClustersScaleReduction(k=2, op=0, red=0):
     print("Aplicando Redução de dimensionalidade")
     model.Xtrain = setReduDim(data=model.Xtrain, op=red)
 
-    ##    print("Buscando distancias")
-    ##    D=distance(model.Xtrain)
+    # print("Buscando distancias")
+    # D=distance(model.Xtrain)
 
     centers, W, closest = kmeans(dataset=model.Xtrain, k=k, threshold=0.001)
 
@@ -1099,7 +1106,7 @@ def plotdataClustersScaleReduction(k=2, op=0, red=0):
 
 
 class Model:
-    ##def __init__(self, hidden, output,lenI,lenO,lenH):
+    # def __init__(self, hidden, output,lenI,lenO,lenH):
     g = []
     g0 = []
     g1 = []
@@ -1146,11 +1153,11 @@ def plot3dCl(X_embedded, Y, labels=1):
     y = X_embedded[:, 1]
     z = X_embedded[:, 2]
 
-    ##    c_list = []
-    ##    d=max(Y)-min(Y)
-    ##    matiz=(254-31.75)/d
-    ##    for i in range(len(Y)):
-    ##        model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
+    # c_list = []
+    # d=max(Y)-min(Y)
+    # matiz=(254-31.75)/d
+    # for i in range(len(Y)):
+    # model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
     if labels == 1:
         for Ys, xs, ys, zs in zip(Y, x, y, z):
             label = " %.2f " % (Ys)
@@ -1184,18 +1191,18 @@ def plot3d(X_embedded, Y, labels=1):
     y = X_embedded[:, 1]
     z = X_embedded[:, 2]
 
-    ##    c_list = []
-    ##    d=max(Y)-min(Y)
-    ##    matiz=(254-31.75)/d
-    ##    for i in range(len(Y)):
-    ##        model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
+    # c_list = []
+    # d=max(Y)-min(Y)
+    # matiz=(254-31.75)/d
+    # for i in range(len(Y)):
+    # model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
     if labels == 1:
         for Ys, xs, ys, zs in zip(Y, x, y, z):
             label = " %.2f " % (Ys)
             ax.text(xs, ys, zs, label, None)
 
-    ##    K=len(Y)
-    ##    colors = cm.hsv(np.arange(K)/float(K))
+    # K=len(Y)
+    # colors = cm.hsv(np.arange(K)/float(K))
     colors = Y
 
     ax.scatter(x, y, z, c=colors, label="points in (x, y, z)")
@@ -1218,10 +1225,10 @@ def distance(X):
     D = np.asmatrix(np.zeros(shape=(X.A.shape[0], X.A.shape[0])))
 
     for i in range(X.A.shape[0]):
-        ##for j in range(X.A.shape[0]):
+        # for j in range(X.A.shape[0]):
         j = 0
         while j < i:
-            ##print("i="+str(i)+" j= "+str(j))
+            # print("i="+str(i)+" j= "+str(j))
             D[i, j] = np.sqrt(np.sum(np.power((X[i, :] - X[j, :]), 2), axis=1))
             D[j, i] = D[i, j]
             j = j + 1
@@ -1230,21 +1237,21 @@ def distance(X):
 
 def processarDistancia(dataset=dataset, op=0):
 
-    ##    Eucliana = 0
-    ##    Cosseno = 1
-    ##    Hamming = 2
-    ##    Manhattan = 3
-    ##    Chebyshev=4
-    ##    Minkowski=5
-    ##    Jaccard=6
-    ##    Haversine=7
-    ##    Sorensen=8
-    ##    Klaplaciano=9
-    ##    Klinear=10
-    ##    Kdistancia=11
-    ##    Krbf=12
-    ##    Ksigmoid=13
-    ##    Kpolinomial=14
+    # Eucliana = 0
+    # Cosseno = 1
+    # Hamming = 2
+    # Manhattan = 3
+    # Chebyshev=4
+    # Minkowski=5
+    # Jaccard=6
+    # Haversine=7
+    # Sorensen=8
+    # Klaplaciano=9
+    # Klinear=10
+    # Kdistancia=11
+    # Krbf=12
+    # Ksigmoid=13
+    # Kpolinomial=14
 
     if op == int(metricaD.Eucliana):
         dataset1 = mtc.euclidean_distances(dataset, dataset)
@@ -1296,7 +1303,7 @@ def processarDistancia(dataset=dataset, op=0):
 
 
 def mstPrim(D, model, closest):
-    ##bagEmbed = np.zeros(len(D))
+    # bagEmbed = np.zeros(len(D))
     maxValue = np.max(D)
     Dcopy = D.copy()
     maxDouble = maxValue * 2
@@ -1305,37 +1312,37 @@ def mstPrim(D, model, closest):
     minValue = np.min(Dcopy)
     minCoord = np.unravel_index(np.argmin(Dcopy), np.array(Dcopy).shape)
 
-    ##adiciona conexão no grafo
+    # adiciona conexão no grafo
     print("Gerando Grafo")
     model.g = Graph()
     model.g.add_vertices(len(D))
 
-    ##model.g.vs["label"] = range(0,len(D))
+    # model.g.vs["label"] = range(0,len(D))
 
-    ##model.g.vs["classes"]= model.Ytrain
+    # model.g.vs["classes"]= model.Ytrain
     model.g.vs["classes"] = closest
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
 
-    ##d=max(model.Ytrain)-min(model.Ytrain)
+    # d=max(model.Ytrain)-min(model.Ytrain)
     d = max(closest) - min(closest)
     matiz = (254 - 31.75) / d
 
     print("Aplicando Paleta")
     for i in range(len(Dcopy)):
-        ##model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
+        # model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
         model.g.vs[i]["color"] = pal.get(
             int(((closest[i] - min(closest)) * matiz) + 31.75)
         )
 
-    ##switch
+    # switch
     model.g.add_edge(int(minCoord[0]), int(minCoord[1]))
     model.g.es[model.g.get_eid(int(minCoord[0]), int(minCoord[1]))]["weight"] = minValue
 
-    ##adiciona conexão na bag
-    ##bagEmbed[int(minCoord[0])]=1
-    ##bagEmbed[int(minCoord[1])]=1
+    # adiciona conexão na bag
+    # bagEmbed[int(minCoord[0])]=1
+    # bagEmbed[int(minCoord[1])]=1
     bagEmbedIndex = []
     bagEmbedIndex.append(int(minCoord[0]))
     bagEmbedIndex.append(int(minCoord[1]))
@@ -1352,21 +1359,21 @@ def mstPrim(D, model, closest):
         minCoordi = bagEmbedIndex[int(minCoordCut[0])]
         minCoordj = int(minCoordCut[1])
         if (minCoordi in bagEmbedIndex) and (minCoordj not in bagEmbedIndex):
-            ##print("len(bag) = "+str(len(bagEmbedIndex)))
+            # print("len(bag) = "+str(len(bagEmbedIndex)))
             bagEmbedIndex.append(minCoordj)
-            ##adicionar conexão com valor.
+            # adicionar conexão com valor.
             model.g.add_edge(minCoordi, minCoordj)
             model.g.es[model.g.get_eid(minCoordi, minCoordj)]["weight"] = minValueCut
             for i in range(len(bagEmbedIndex)):
                 Dcopy[bagEmbedIndex[i], minCoordj] = maxDouble
                 Dcopy[minCoordj, bagEmbedIndex[i]] = maxDouble
-        ##            for i in range(len(D)):
-        ##                Dcopy[minCoordj,bagEmbedIndex[i]]=maxDouble
+        # for i in range(len(D)):
+        # Dcopy[minCoordj,bagEmbedIndex[i]]=maxDouble
 
         Dcopy[minCoordi, minCoordj] = maxDouble
         Dcopy[minCoordj, minCoordi] = maxDouble
         print("len(bag) = " + str(len(bagEmbedIndex)))
-        ##print("len(bag) = "+str(len(bagEmbedIndex))+" i = "+str(minCoordi)+" j = "+str(minCoordj))
+        # print("len(bag) = "+str(len(bagEmbedIndex))+" i = "+str(minCoordi)+" j = "+str(minCoordj))
     print("Plot grafo")
     random.seed(140)
     out = plot(model.g, layout="kk", vertex_size=5)
@@ -1374,56 +1381,56 @@ def mstPrim(D, model, closest):
 
 def mstPrim2(D, model, closest):
     bagEmbed = np.zeros(len(D))
-    ##maxValue = np.max(D)
+    # maxValue = np.max(D)
     Dcopy = D.copy()
-    ##    maxDouble = maxValue*2
-    ##    for i in range(len(D)):
-    ##        Dcopy[i,i]=maxDouble
-    ##minValue= np.min(Dcopy)
-    ##minCoord= np.unravel_index(np.argmin(Dcopy), np.array(Dcopy).shape)
+    # maxDouble = maxValue*2
+    # for i in range(len(D)):
+    # Dcopy[i,i]=maxDouble
+    # minValue= np.min(Dcopy)
+    # minCoord= np.unravel_index(np.argmin(Dcopy), np.array(Dcopy).shape)
 
-    ##fila = [[] for i in range(len(D))]
+    # fila = [[] for i in range(len(D))]
     fila = []
     for i in range(1, len(D)):
         for j in range(i):
             tp = [Dcopy[i, j], i, j]
-            ##print("i = "+str(i)+" j = "+str(j))
+            # print("i = "+str(i)+" j = "+str(j))
             fila.append(tp)
     fila.sort()
 
-    ##adiciona conexão no grafo
+    # adiciona conexão no grafo
     print("Gerando Grafo")
     model.g = Graph()
     model.g.add_vertices(len(D))
 
-    ##model.g.vs["label"] = range(0,len(D))
+    # model.g.vs["label"] = range(0,len(D))
 
-    ##model.g.vs["classes"]= model.Ytrain
+    # model.g.vs["classes"]= model.Ytrain
     model.g.vs["classes"] = closest
 
     print("Ajustando paleta rainbow")
     pal = RainbowPalette(n=255)
 
-    ##d=max(model.Ytrain)-min(model.Ytrain)
+    # d=max(model.Ytrain)-min(model.Ytrain)
     d = max(closest) - min(closest)
     matiz = (254 - 31.75) / d
 
     print("Aplicando Paleta")
     for i in range(len(D)):
-        ##model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
+        # model.g.vs[i]['color'] = pal.get(int(((model.Ytrain[i] - min(model.Ytrain)) * matiz) + 31.75))
         model.g.vs[i]["color"] = pal.get(
             int(((closest[i] - min(closest)) * matiz) + 31.75)
         )
 
     tp = fila[0]
-    ##adiciona conexão na bag
+    # adiciona conexão na bag
     bagEmbed[int(tp[1])] = 1
     bagEmbed[int(tp[2])] = 1
-    ##bagEmbedIndex=[]
-    ##bagEmbedIndex.append(int(tp[1]))
-    ##bagEmbedIndex.append(int(tp[2]))
+    # bagEmbedIndex=[]
+    # bagEmbedIndex.append(int(tp[1]))
+    # bagEmbedIndex.append(int(tp[2]))
 
-    ##switch
+    # switch
     model.g.add_edge(int(tp[1]), int(tp[2]))
     model.g.es[model.g.get_eid(int(tp[1]), int(tp[2]))]["weight"] = tp[0]
 
@@ -1439,14 +1446,14 @@ def mstPrim2(D, model, closest):
                 bagEmbed[minCoordj] = 1
             else:
                 bagEmbed[minCoordi] = 1
-            ##print("len(bag) = "+str(int(sum(bagEmbed)))
-            ##adicionar conexão com valor.
+            # print("len(bag) = "+str(int(sum(bagEmbed)))
+            # adicionar conexão com valor.
             model.g.add_edge(minCoordi, minCoordj)
             model.g.es[model.g.get_eid(minCoordi, minCoordj)]["weight"] = minValueCut
             print("len(bag) = " + str(int(soma)))
             soma = soma + 1
         nt = nt + 1
-        ##print("len(bag) = "+str(sum(bagEmbed))+" i = "+str(minCoordi)+" j = "+str(minCoordj))
+        # print("len(bag) = "+str(sum(bagEmbed))+" i = "+str(minCoordi)+" j = "+str(minCoordj))
 
     print("Plot grafo")
     random.seed(140)
@@ -1454,7 +1461,6 @@ def mstPrim2(D, model, closest):
 
 
 def knn(D, k=4):
-
     knn = np.zeros((len(D), k)) - 1
 
     sortDids = np.argsort(D, axis=1)
@@ -1501,7 +1507,7 @@ def buildW(D, knn, sigma=4):
     D = np.asmatrix(D)
     Wi = np.asmatrix(np.zeros(shape=(knn.shape[0], knn.shape[1])))
     for i in range(knn.shape[0]):
-        ##print(i)
+        # print(i)
         for j in range(knn.shape[1]):
             Wi[i, j] = rbf(D[i, int(knn[i, j])], sigma)
     return Wi
@@ -1513,6 +1519,7 @@ def LSR(X, Y, x):
     B1 = (np.sum(X * Y) - (n * np.mean(X) * np.mean(Y))) / (
         np.sum(np.power(X, 2)) - n * np.power(np.mean(X), 2)
     )
+    
     B0 = np.mean(Y) - B1 * np.mean(X)
     y = B0 + B1 * x
     return y
