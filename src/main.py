@@ -11,7 +11,6 @@ os.environ["PYTHONHASHSEED"] = str(SEED)
 
 keras.utils.set_random_seed(SEED)
 
-
 if (__name__ == "__main__"):
     dataset = baixar_dataset()
     pasta_destino = copiar_pastas(dataset)

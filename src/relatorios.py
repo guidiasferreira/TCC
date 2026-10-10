@@ -88,7 +88,6 @@ def salvar_resultados_excel(df_folds, df_resumo, quantidade_total_imagens):
             index = False
         )
 
-
         acumular("CONFIGURACAO", configuracoes).to_excel(
             escritor,
             sheet_name = "CONFIGURACAO",
