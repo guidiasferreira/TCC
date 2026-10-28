@@ -5,7 +5,7 @@ from pathlib import Path
 # Parâmetros que serão utilizados para treinar o modelo
 BATCH_SIZE = 32
 EPOCHS = 200
-IMG_SIZE = (224, 224)
+IMG_SIZE = (112, 112)
 FOLDS = 5
 SEED = 42
 PATIENCE = 15
@@ -15,7 +15,7 @@ DATASET_KAGGLE = "abdallahalidev/plantvillage-dataset"
 BASE_FOLDER_GRAYSCALE = Path("data/images_grayscale")
 BASE_FOLDER_RGB = Path("data/images_rgb")
 MODEL_FOLDER = Path("results/models")
-EVALUATION_FOLDER = Path("results/evaluation_v3")
+EVALUATION_FOLDER = Path("results/evaluation_v4")
 
 # Modelos pré-treinados
 MODELS = {

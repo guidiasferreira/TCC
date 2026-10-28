@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from config_modelos import CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, EPOCHS, FOLDS, SEED, PATIENCE, EVALUATION_FOLDER
+from config import CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, EPOCHS, FOLDS, SEED, PATIENCE, EVALUATION_FOLDER
 
 
 def preparar_resultados_csv(df_folds, df_resumo):

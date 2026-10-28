@@ -5,10 +5,10 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from time import time
 
-from config_modelos import CURRENT_MODEL, EPOCHS, FOLDS, PATIENCE, SEED
-from pipeline import criar_dataset
-from modelo import criar_modelo
-from relatorios import gerar_matriz_confusao
+from config import CURRENT_MODEL, EPOCHS, FOLDS, PATIENCE, SEED
+from dataset import criar_dataset
+from model import criar_modelo
+from reports import gerar_matriz_confusao
 
 
 def treinar_fold(caminhos_treino, rotulos_treino, caminhos_validacao, rotulos_validacao, classe_unica, epochs = EPOCHS):
@@ -28,7 +28,9 @@ def treinar_fold(caminhos_treino, rotulos_treino, caminhos_validacao, rotulos_va
         verbose = 1,
         callbacks = [
             keras.callbacks.EarlyStopping(
-                monitor = "val_loss", patience = PATIENCE, restore_best_weights = True
+                monitor = "val_loss", 
+                patience = PATIENCE, 
+                restore_best_weights = True
             )
         ]
     )

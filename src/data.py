@@ -3,7 +3,7 @@ import numpy as np
 import kagglehub
 from pathlib import Path
 
-from config_modelos import BASE_FOLDER_RGB, DATASET_KAGGLE
+from config import BASE_FOLDER_RGB, DATASET_KAGGLE
 
 # Baixar dataset importado do Kaggle (PlantVillage)
 def baixar_dataset():

@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 import keras.utils
 
-from config_modelos import MODELS, CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, SEED
+from config import MODELS, CURRENT_MODEL, IMG_SIZE, BATCH_SIZE, SEED
 
 # Carregar as imagens e realizar o pré-processamento, convertendo as imagens de 256x256 para 224x224
 def carregar_processar_imagem(path, size = IMG_SIZE):

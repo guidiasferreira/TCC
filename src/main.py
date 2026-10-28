@@ -2,10 +2,10 @@ import os
 import numpy as np
 import keras.utils
 
-from config_modelos import SEED
-from dados import baixar_dataset, copiar_pastas, coletar_caminhos_rotulos
-from validar_modelo import rodar_kfold
-from relatorios import salvar_resultados_csv, salvar_resultados_excel
+from config import SEED
+from data import baixar_dataset, copiar_pastas, coletar_caminhos_rotulos
+from trainer import rodar_kfold
+from reports import salvar_resultados_csv, salvar_resultados_excel
 
 os.environ["PYTHONHASHSEED"] = str(SEED)
 
